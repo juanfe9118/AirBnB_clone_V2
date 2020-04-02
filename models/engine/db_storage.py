@@ -37,6 +37,7 @@ class DBStorage():
     def all(self, cls=None):
         """Lists all objects of a given class
         or everything if no class is given
+        Supports all classes
         """
         objects = {}
         if cls is None:
