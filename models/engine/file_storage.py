@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This is the file storage class for AirBnB"""
+"""This is the file storage class for AirBnB."""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -11,24 +11,37 @@ from models.review import Review
 
 
 class FileStorage:
-    """This class serializes instances to a JSON file and
-    deserializes JSON file to instances
+    """JSON file storage engine.
+
+    This class serializes instances to a JSON file and
+    deserializes JSON file to instances.
     Attributes:
         __file_path: path to the JSON file
         __objects: objects will be stored
     """
+
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
-        """returns a dictionary
+    def all(self, cls=None):
+        """Return a dictionary.
+
         Return:
-            returns a dictionary of __object
+            Returns a dictionary of __object.
+            This dictionary can also be filtered to elements of one class.
         """
-        return self.__objects
+        objects = {}
+        if cls:
+            for obj in self.__objects:
+                if type(self.__objects[obj]) == cls:
+                    objects[obj] = self.__objects[obj]
+        else:
+            objects = self.__objects
+        return objects
 
     def new(self, obj):
-        """sets __object to given obj
+        """Set __object to given obj.
+
         Args:
             obj: given object
         """
@@ -37,8 +50,7 @@ class FileStorage:
             self.__objects[key] = obj
 
     def save(self):
-        """serialize the file path to JSON file path
-        """
+        """Serialize the file path to JSON file path."""
         my_dict = {}
         for key, value in self.__objects.items():
             my_dict[key] = value.to_dict()
@@ -46,8 +58,7 @@ class FileStorage:
             json.dump(my_dict, f)
 
     def reload(self):
-        """serialize the file path to JSON file path
-        """
+        """Serialize the file path to JSON file path."""
         try:
             with open(self.__file_path, 'r', encoding="UTF-8") as f:
                 for key, value in (json.load(f)).items():
