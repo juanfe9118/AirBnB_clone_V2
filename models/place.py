@@ -1,7 +1,17 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
+from sqlalchemy.orm import relationship
+from os import getenv
+
+
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey('amenities.id'), primary_key=True,
+                             nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -31,3 +41,23 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
+
+    if getenv('HBNB_TYPE_STORAGE') == 'fs':
+        @property
+        def amenities(self):
+            """Returns all amenities linked to the place
+            """
+            am_list = []
+            for amenity in amenity_ids:
+                if amenity.id == self.id:
+                    am_list.append(amenity)
+            return am_list
+
+        @amenities.setter(self, amen):
+            """Adds an Amenity.id to amenity_ids"""
+            if type(amen).__name__ == 'Amenity':
+                self.amenity_ids.append(amen)
