@@ -41,7 +41,7 @@ class DBStorage():
         """
         objects = {}
         if cls is None:
-            classes = ['State', 'City', 'User', 'Place']
+            classes = ['State', 'City', 'User', 'Place', 'Review', 'Amenity']
             objs = []
             for _class in classes:
                 query = self.__session.query(eval(_class))
