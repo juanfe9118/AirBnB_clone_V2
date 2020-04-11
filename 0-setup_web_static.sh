@@ -16,7 +16,7 @@ chown -R ubuntu:ubuntu /data/
 
 if grep -q hbnb_static /etc/nginx/sites-available/default
 then
-    :
+    echo ""
 else
     sed -i '/:80 default_server/a \\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}' /etc/nginx/sites-available/default
 fi
