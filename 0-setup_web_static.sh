@@ -4,7 +4,14 @@ apt-get update
 apt-get -y install nginx
 mkdir -p /data/web_static/releases/test/
 mkdir -p /data/web_static/shared
-echo -e "<html>\n  <head>\n  </head>\n  <body>\n    Holberton School\n  </body>\n</html>" > /data/web_static/releases/test/index.html
+cat > /data/web_static/releases/test/index.html << EOF
+<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>
 
 if [ -L /data/web_static/current ]
 then
