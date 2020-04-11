@@ -12,6 +12,7 @@ cat > /data/web_static/releases/test/index.html << EOF
     Holberton School
   </body>
 </html>
+EOF
 
 if [ -L /data/web_static/current ]
 then
