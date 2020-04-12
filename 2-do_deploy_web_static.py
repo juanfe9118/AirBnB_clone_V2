@@ -26,14 +26,14 @@ def do_deploy(archive_path):
         command_rm = 'rm /tmp/{}'.format(file_name)
         run(command_rm)
         command_mv = 'mv /data/web_static/releases/'
-        command_mv += '{}/web_static/*'.format(file_name)
-        command_mv += ' /data/web_static/releases/{}/'.format(file_name)
+        command_mv += '{}/web_static/*'.format(dir_name)
+        command_mv += ' /data/web_static/releases/{}/'.format(dir_name)
         run(command_mv)
-        command_rd = 'rm -rf /data/web_static/releases/{}'.format(file_name)
+        command_rd = 'rm -rf /data/web_static/releases/{}'.format(dir_name)
         command_rd += '/web_static'
         run(command_rd)
         run('rm -rf /data/web_static/current')
-        command_ln = 'ln -s /data/web_static/releases/{}/'.format(file_name)
+        command_ln = 'ln -s /data/web_static/releases/{}/'.format(dir_name)
         command_ln += ' /data/web_static/current'
         run(command_ln)
         print("New version deployed!")
