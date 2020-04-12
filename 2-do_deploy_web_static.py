@@ -12,7 +12,7 @@ env.hosts = ['35.227.111.39', '3.84.128.123']
 def do_deploy(archive_path):
     """Deploys the web page in the tar archive"""
     if not exists(archive_path) or (exists(archive_path) and
-                                    not isdir(archive_path)):
+                                    isdir(archive_path)):
         return False
     try:
         put(archive_path, '/tmp/')
