@@ -22,5 +22,6 @@ def do_pack():
     print("Packing web_static to {}".format(filename))
     try:
         local(command)
+        return filename
     except:
         return None
