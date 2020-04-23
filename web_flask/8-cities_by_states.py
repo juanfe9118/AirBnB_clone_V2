@@ -6,15 +6,15 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.route('/states_list', strict_slashes=False)
+@app.route('/cities_by_states', strict_slashes=False)
 def list_state():
-    """Displays a list of states in a website"""
+    """Displays a list of cities in their states in a website"""
     state_list = storage.all(State).values()
-    return render_template('7-states_list.html', states=state_list)
+    return render_template('8-cities_by_states.html', state_list=state_list)
 
 
 @app.teardown_appcontext
-def close_storage():
+def close_storage(db):
     """Closes the current SQLAlchemy session"""
     storage.close()
 
